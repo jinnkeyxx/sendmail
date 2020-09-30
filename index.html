@@ -1,0 +1,86 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Send email</title>
+    <link rel="stylesheet" type="text/css" href="public/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="public/css/main.css">
+    <script src="http://code.jquery.com/jquery-2.0.0.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css"
+        integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ=="
+        crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"
+        integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ=="
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped active fixed" role="progressbar" aria-valuemin="0"
+                aria-valuemax="100" style="width : 0">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6  col-lg-6 col-xl-6 mt-3">
+
+                <form class="my-3 border p-3" id="form-email" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <textarea type="email" name="txtEmail" id="email" class="form-control" rows="5"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtemail">File email</label>
+                        <input type="file" name="txtemail" id="txtemail" class="form-control">
+                    </div>
+                    Select Image Files to Upload:
+                    <label for="txtemail">Đính kèm ảnh</label>
+                    <input type="file" name="select_image[]" id="select_image" class="form-control" multiple="true">
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" name="txtSubject" id="subject" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">content</label>
+                        <textarea class="form-control" id="content" name="txtContent" rows="5"></textarea>
+                    </div>
+                    Hoặc Up file HTML
+                    <div class="form-group">
+                        <label for="content">(content)</label>
+                        <input type="file" name="htmlContent" id="htmlContent" class="form-control">
+
+                    </div>
+                    <button class="btn btn-primary form-control" type="submit" name="btnSend">Send</button>
+                    <div class="form-group my-3" id="process" style="display: none">
+
+                    </div>
+
+                </form>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6  col-lg-6 col-xl-6 mt-3">
+                <div class="form-group mail-sender">
+                    <label for="mail-sender">Mail da gui <span id="sended"> </span></label>
+                    <textarea class="form-control " id="mail-sender" name="txtContent" rows="5"
+                        disable="true"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="" id='loading' style="display:none; z-index: 99999999999999;">
+        <div class="circle"></div>
+        <div class="circle-small"></div>
+        <div class="circle-big"></div>
+        <div class="circle-inner-inner"></div>
+        <div class="circle-inner"></div>
+    </div>
+    <div class="bg"></div>
+    <script src="public/js/kun24.js"></script>
+</body>
+
+</html>
