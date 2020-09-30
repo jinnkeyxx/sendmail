@@ -42,11 +42,12 @@ if(isset($_FILES['htmlContent']) && empty($_POST['content'])){
 	}
 	
 }
-elseif(!isset($_FILES['htmlContent']) && !empty($_POST['content'])) {
+elseif(isset($_FILES['htmlContent']) && !empty($_POST['content'])) {
 	$content = $_POST['content'];
 }
 else {
-	die( json_encode(array('status' => 1 , 'messages' => 'không thể gửi 2 content' , 'mail' => $array_mail , 'time' => $time)));
+	$content = $_POST['content'];
+	// die( json_encode(array('status' => 1 , 'messages' => 'không thể gửi 2 content' , 'mail' => $array_mail , 'time' => $time)));
 }
 
 
