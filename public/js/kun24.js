@@ -16,7 +16,11 @@
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     }
-
+    function load(timeout){
+        setTimeout(() => {
+            window.location.reload();
+        }, timeout);
+    }
     let timer = null;
     let time = null;
     let percentage = 0;
@@ -64,14 +68,14 @@
                     $('button').removeClass('disabled');
                     $('.bg').css('display', 'none');
 
-                    $('#sended').text(res.mail.length);
+                   
                     
 
                     if (res.status == 1) {
                         toastr["error"](res.messages)
 
                     } else {
-
+                        $('#sended').text(res.mail.length);
                         for (let i = 0; i < res.mail.length; i++) {
                             setTimeout(() => {
                                 toastr["success"]('Gửi mail thành công đến ' + res.mail[i])
@@ -79,6 +83,7 @@
 
                             }, i * 1000);
                         }
+                        // load(2500)
 
                     }
 
@@ -103,5 +108,11 @@
             document.getElementById('process').style.display = 'none'
         }
     }
+    $('input[type=file]').change((e) =>{
+        var fileName = e.target.files[0].name;
+
+        toastr['success']('upload ' + fileName)
+       
+    })
 
 })

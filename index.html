@@ -16,44 +16,62 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"
         integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ=="
         crossorigin="anonymous"></script>
-
+        <script src="public/tinymce/tinymce.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <style>
+        .progress-bar{
+            transition: all 1s;
+        }
+        #txtemail , #select_image , #htmlContent{
+            opacity: 0;
+            position: absolute;
+            z-index: -1;
+        }
+        label {
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped active fixed" role="progressbar" aria-valuemin="0"
+        <div class="progress fixed-top">
+            <div class="progress-bar progress-bar-striped active " role="progressbar" aria-valuemin="0"
                 aria-valuemax="100" style="width : 0">
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-sm-12 col-md-6  col-lg-6 col-xl-6 mt-3">
+            <div class="col-12 col-sm-12 col-md-12  col-lg-12 col-xl-12 mt-3">
 
                 <form class="my-3 border p-3" id="form-email" enctype="multipart/form-data">
 
                     <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="email">Danh sách email cần gửi</label>
                         <textarea type="email" name="txtEmail" id="email" class="form-control" rows="5"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="txtemail">File email</label>
-                        <input type="file" name="txtemail" id="txtemail" class="form-control">
+                        <label for="txtemail"> <i class="fa fa-upload" ></i> File email </label>
+                        <input type="file" name="txtemail" id="txtemail" class="form-control" >
+                    
+                 
+                        <label for="txtemail"> <i class="fa fa-upload"></i> Đính kèm ảnh </label>
+                        <input type="file" name="select_image[]" id="select_image" class="form-control" multiple="true">
+                        <label for="htmlContent"> <i class="fa fa-upload"></i> Đính kèm nội dung html </label>
+                        <input type="file" name="htmlContent" id="htmlContent" class="form-control" >
+
                     </div>
-                    Select Image Files to Upload:
-                    <label for="txtemail">Đính kèm ảnh</label>
-                    <input type="file" name="select_image[]" id="select_image" class="form-control" multiple="true">
                     <div class="form-group">
                         <label for="subject">Subject</label>
                         <input type="text" name="txtSubject" id="subject" class="form-control">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group"></div>
                         <label for="content">content</label>
-                        <textarea class="form-control" id="content" name="txtContent" rows="5"></textarea>
+                        <textarea  rows="24" class="tinymce" id="content" name="txtContent">TinyMCE Full custom by DevForum</textarea>
+                       
                     </div>
-                    Hoặc Up file HTML
+                    
                     <div class="form-group">
-                        <label for="content">(content)</label>
-                        <input type="file" name="htmlContent" id="htmlContent" class="form-control">
+                        
 
                     </div>
                     <button class="btn btn-primary form-control" type="submit" name="btnSend">Send</button>
@@ -63,7 +81,7 @@
 
                 </form>
             </div>
-            <div class="col-12 col-sm-12 col-md-6  col-lg-6 col-xl-6 mt-3">
+            <div class="col-12 col-sm-12 col-md-12  col-lg-12 col-xl-12 mt-3">
                 <div class="form-group mail-sender">
                     <label for="mail-sender">Mail da gui <span id="sended"> </span></label>
                     <textarea class="form-control " id="mail-sender" name="txtContent" rows="5"
@@ -80,6 +98,73 @@
         <div class="circle-inner"></div>
     </div>
     <div class="bg"></div>
+    <script type="text/javascript">
+		var span = document.querySelector("span");
+		span.addEventListener("input", function () {
+			var text = this.innerText;
+			this.setAttribute("data-heading", text);
+			this.parentElement.setAttribute("data-heading", text);
+		});       
+	</script>
+	
+	<script type="text/javascript">
+		tinymce.init({
+			selector: '.tinymce',
+			plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap emoticons colorpicker textcolor responsivefilemanager',
+			imagetools_cors_hosts: ['picsum.photos'],
+			menubar: 'file edit view insert format tools table help',
+			toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist | forecolor | backcolor | removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl | ',
+			toolbar_sticky: true,
+			autosave_ask_before_unload: true,
+			autosave_interval: "30s",
+			autosave_prefix: "{path}{query}-{id}-",
+			autosave_restore_when_empty: false,
+			autosave_retention: "2m",
+			image_advtab: true,
+			/*content_css: '//www.tiny.cloud/css/codepen.min.css',*/
+			link_list: [
+			{ title: 'My page 1', value: 'https://www.codexworld.com' },
+			{ title: 'My page 2', value: 'https://www.xwebtools.com' }
+			],
+			image_list: [
+			{ title: 'My page 1', value: 'https://www.codexworld.com' },
+			{ title: 'My page 2', value: 'https://www.xwebtools.com' }
+			],
+			image_class_list: [
+			{ title: 'None', value: '' },
+			{ title: 'Some class', value: 'class-name' }
+			],
+			importcss_append: true,
+			file_picker_callback: function (callback, value, meta) {
+				/* Provide file and text for the link dialog */
+				if (meta.filetype === 'file') {
+					callback('https://www.google.com/logos/google.jpg', { text: 'My text' });
+				}
+
+				/* Provide image and alt text for the image dialog */
+				if (meta.filetype === 'image') {
+					callback('https://www.google.com/logos/google.jpg', { alt: 'My alt text' });
+				}
+
+				/* Provide alternative source and posted for the media dialog */
+				if (meta.filetype === 'media') {
+					callback('movie.mp4', { source2: 'alt.ogg', poster: 'https://www.google.com/logos/google.jpg' });
+				}
+			},
+			templates: [
+			{ title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
+			{ title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
+			{ title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+			],
+			template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+			template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+			image_caption: true,
+			quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+			noneditable_noneditable_class: "mceNonEditable",
+			toolbar_mode: 'sliding',
+			contextmenu: "link image imagetools table",
+		});
+	</script>
     <script src="public/js/kun24.js"></script>
 </body>
 

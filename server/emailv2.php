@@ -8,7 +8,12 @@ use PHPMailer\PHPMailer\Exception;
 	
 $email = $_POST['txtEmail'];
 $subject = $_POST['subject'];
-if(isset($_FILES['htmlContent'])){
+$email = strip_tags($email);
+$subject = strip_tags($subject);
+$array_mail = [];
+$file_array = [];
+$time = 0;
+if(isset($_FILES['htmlContent']) && empty($_POST['content'])){
 	$filename = $_FILES['htmlContent']['name'];
 	$location = "../server/filemail/".$filename;
 	$imageFileType = pathinfo($location,PATHINFO_EXTENSION);
@@ -26,11 +31,8 @@ if(isset($_FILES['htmlContent'])){
 		{
 			$check = 1;
 			$file = fopen($location , 'r');
-			$content =  fread($file, filesize($location));
+			$content =  fread($file, filesize($location));	
 			
-			
-			
-						
 		}else
 		{
 			die( json_encode(array('status' => 1 , 'messages' => 'không thể up load file' , 'mail' => $array_mail , 'time' => $time)));
@@ -38,19 +40,18 @@ if(isset($_FILES['htmlContent'])){
 		}
 					
 	}
+	
 }
-else {
+elseif(!isset($_FILES['htmlContent']) && !empty($_POST['content'])) {
 	$content = $_POST['content'];
 }
-
-
-$email = strip_tags($email);
-$subject = strip_tags($subject);
-$file_array = [];
-$time = 0;
-if($content == "" || $subject == ""){
-	die(json_encode(array('status' => 1 , 'messages' => 'còn thiếu gì đó' , 'mail' => $array_mail , 'time' => $time)));
+else {
+	die( json_encode(array('status' => 1 , 'messages' => 'không thể gửi 2 content' , 'mail' => $array_mail , 'time' => $time)));
 }
+
+
+
+
 if(isset($_FILES['select_image']))
 {
 	if(is_array($_FILES['select_image']))
@@ -177,15 +178,8 @@ function send_mail($email  , $subject , $content)
 				}
 			}	
 					
-				
-					
-				
-			
-				
-
-			
 		}
-			// Content
+			
 				$mail->isHTML(true);     // Set email format to HTML
 				$mail->Subject = $subject;
 				$mail->Body    = $content;
@@ -208,7 +202,7 @@ function send_mail($email  , $subject , $content)
 	catch (Exception $e)
 	{
 		$status = 1 ;
-		$messages =  "Sai địa chỉ người nhận thư: {$mail->ErrorInfo}";
+		$messages =  "{$mail->ErrorInfo}";
 				
 	}
 	echo json_encode(array('status'=> $status , 'messages' => $messages , 'mail' => $array_mail , 'time' => $time));
