@@ -110,7 +110,13 @@ if(!empty($email) && !isset($_FILES['files']['tmp_name']))
 	}
 	
 }
-						
+			
+		
+			   
+			
+			 
+		 	
+			
 elseif(isset($_FILES['files']['name']) && empty($email))
 {
 				
@@ -123,8 +129,10 @@ elseif(isset($_FILES['files']['name']) && empty($email))
 	{
 		die(json_encode(array('status' => 1 , 'messages' => 'up load file lỗi' , 'mail' => $array_mail , 'time' => $time)));
 	}
+
 	else
 	{
+					/* Upload file */
 		if(move_uploaded_file($_FILES['files']['tmp_name'],$location))
 		{
 			
@@ -132,12 +140,30 @@ elseif(isset($_FILES['files']['name']) && empty($email))
 
 			
 			$read =  fread($file, filesize($location));
-			$email = explode("\n" , $read);
+			
+			$pos = strpos($read, ';');
+			$pos2 = strpos($read, ',');
+			$pos3 = strpos($read, '\n');
+			if($pos !== false){
+				$email = explode(";" , $read);
+			}
+			elseif($pos2 !== false){
+				$email = explode("," , $read);
+			}
+			elseif($pos3 !== false) {
+				$email = explode("\n" , $read);
+			}
+			else {
+				
+				die(json_encode(array('status' => 1 , 'messages' => 'email không đúng định dạng' , 'mail' => $array_mail , 'time' => $time)));
+			}
 			
 			foreach($email as $value)
 			{
 				array_push($email_array , $value);
-			}			
+		
+			}
+						
 		}else
 		{
 			die( json_encode(array('status' => 1 , 'messages' => 'không thể up load file' , 'mail' => $array_mail , 'time' => $time)));
