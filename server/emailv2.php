@@ -110,13 +110,7 @@ if(!empty($email) && !isset($_FILES['files']['tmp_name']))
 	}
 	
 }
-			
-		
-			   
-			
-			 
-		 	
-			
+						
 elseif(isset($_FILES['files']['name']) && empty($email))
 {
 				
@@ -129,26 +123,21 @@ elseif(isset($_FILES['files']['name']) && empty($email))
 	{
 		die(json_encode(array('status' => 1 , 'messages' => 'up load file lỗi' , 'mail' => $array_mail , 'time' => $time)));
 	}
-	
 	else
 	{
-					/* Upload file */
 		if(move_uploaded_file($_FILES['files']['tmp_name'],$location))
 		{
 			
 			$file = fopen($location , 'r');
 
-			// chuyển đổi file sang mảng
+			
 			$read =  fread($file, filesize($location));
 			$email = explode("\n" , $read);
 			
-			// send_mail($data , $subject , $content);
 			foreach($email as $value)
 			{
 				array_push($email_array , $value);
-		
-			}
-						
+			}			
 		}else
 		{
 			die( json_encode(array('status' => 1 , 'messages' => 'không thể up load file' , 'mail' => $array_mail , 'time' => $time)));
