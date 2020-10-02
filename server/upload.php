@@ -1,6 +1,6 @@
 <?php
 // Allowed origins to upload images
-$accepted_origins = array("http://localhost");
+$accepted_origins = array("http://localhost/sendmail/");
 
 // Images upload path
 $imageFolder = "imgEmail/";

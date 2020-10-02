@@ -85,7 +85,7 @@ $config = array(
     | with final /
     |
     */
-    'current_path' => '../../source/',
+    'current_path' => '../source/',
 
     /*
     |--------------------------------------------------------------------------
@@ -96,7 +96,7 @@ $config = array(
     | DO NOT put inside upload folder
     |
     */
-    'thumbs_base_path' => '../../thumbs/',
+    'thumbs_base_path' => '../thumbs/',
 
     /*
     |--------------------------------------------------------------------------
@@ -134,8 +134,8 @@ $config = array(
     'ftp_host'         => false, //put the FTP host
     'ftp_user'         => "user",
     'ftp_pass'         => "pass",
-    'ftp_base_folder'  => "",
-    'ftp_base_url'     => "http://localhost/sendmail",
+    'ftp_base_folder'  => "base_folder",
+    'ftp_base_url'     => "http://site to ftp root",
     // Directory where place files before to send to FTP with final /
     'ftp_temp_folder'  => "../temp/",
     /*
@@ -219,7 +219,7 @@ $config = array(
     |--------------------------------------------------------------------------
     |
     */
-    'filePermission' => 0777,
+    'filePermission' => 0755,
     'folderPermission' => 0777,
 
 
