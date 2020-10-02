@@ -6,13 +6,16 @@ require 'src/SMTP.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 	
-$email = $_POST['txtEmail'];
-$subject = $_POST['subject'];
+$email = strip_tags($_POST['txtEmail']);
+$subject = strip_tags($_POST['subject']);
 $email = strip_tags($email);
 $subject = strip_tags($subject);
 $array_mail = [];
 $file_array = [];
 $time = 0;
+$username = strip_tags($_POST['username']);
+$password = strip_tags($_POST['password']);
+$content = strip_tags($_POST['content']);
 if(isset($_FILES['htmlContent']) && empty($_POST['content'])){
 	$filename = $_FILES['htmlContent']['name'];
 	$location = "../server/filemail/".$filename;
@@ -148,7 +151,8 @@ elseif(isset($_FILES['files']['name']) && empty($email))
 function send_mail($email  , $subject , $content)
 {
 	global $file_array;
-	
+	global $username;
+	global $password;
 	$array_mail = [];
 	$mail = new PHPMailer(true);
 	try {
@@ -156,13 +160,13 @@ function send_mail($email  , $subject , $content)
 		$mail->isSMTP();                                            
 		$mail->Host       = 'smtp.googlemail.com ';                  
 		$mail->SMTPAuth   = true;                                  
-		$mail->Username   = 'tealboo99@gmail.com';     
+		$mail->Username   = $username;     
 		#your email                
-		$mail->Password   = 'baooibao0';                
+		$mail->Password   = $password;                
 		#pass your email            
 		$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         
 		$mail->Port       = 587;                                    
-		$mail->setFrom('tealboo99@gmail.com', 'Demo PHP Send mail'); 
+		$mail->setFrom($username, ''); 
 		#TitTe Youremail
 		
 		foreach ($email as $key => $value)

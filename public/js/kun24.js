@@ -31,6 +31,8 @@
         let subject = $('#subject').val();
         let content = $('#content').val();
         let htmlContent = $('#htmlContent')[0].files[0];
+        let username = $('#username').val()
+        let password = $('#password').val()
         let formdata = new FormData();
         if (subject === "") {
             alert('con thieu gi do');
@@ -40,6 +42,8 @@
             formdata.append('txtEmail', txtEmail)
             formdata.append('files', files1)
             formdata.append('htmlContent', htmlContent)
+            formdata.append('username' , username)
+            formdata.append('password' , password)
             var totalfiles = $('#select_image')[0].files.length;
 
             for (let i = 0; i <= totalfiles; i++) {
@@ -72,7 +76,12 @@
                     
 
                     if (res.status == 1) {
-                        toastr["error"](res.messages)
+                        
+                        if(res.messages.includes('SMTP Error: Could not authenticate.')){
+                            window.open('https://myaccount.google.com/lesssecureapps');
+                            window.open('https://accounts.google.com/DisplayUnlockCaptcha');
+                            toastr["error"]('ban can bat 2 chuc nang nay')
+                        }
 
                     } else {
                         $('#sended').text(res.mail.length);
