@@ -135,7 +135,7 @@ elseif(isset($_FILES['files']['name']) && empty($email))
 					/* Upload file */
 		if(move_uploaded_file($_FILES['files']['tmp_name'],$location))
 		{
-			$check = 1;
+			
 			$file = fopen($location , 'r');
 
 			// chuyển đổi file sang mảng
@@ -143,7 +143,11 @@ elseif(isset($_FILES['files']['name']) && empty($email))
 			$email = explode("\n" , $read);
 			
 			// send_mail($data , $subject , $content);
-			array_push($email_array , $email);
+			foreach($email as $value)
+			{
+				array_push($email_array , $value);
+		
+			}
 						
 		}else
 		{
