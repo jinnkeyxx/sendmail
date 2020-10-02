@@ -25,83 +25,88 @@
     let timer = null;
     let time = null;
     let percentage = 0;
+
     $('form#form-email').submit((e) => {
         e.preventDefault();
         let txtEmail = $('#email').val();
         var files1 = $('#txtemail')[0].files[0];
         let subject = $('#subject').val();
-        let content = $('#content').val();
+        let content = tinymce.activeEditor.getContent();
         let htmlContent = $('#htmlContent')[0].files[0];
         let username = $('#username').val()
         let password = $('#password').val()
         let formdata = new FormData();
-        if (subject === "") {
+        if (subject == "") {
             alert('con thieu gi do');
         } else {
-            formdata.append('subject', subject)
-            formdata.append('content', content)
-            formdata.append('txtEmail', txtEmail)
-            formdata.append('files', files1)
-            formdata.append('htmlContent', htmlContent)
-            formdata.append('username', username)
-            formdata.append('password', password)
-            var totalfiles = $('#select_image')[0].files.length;
+            if (!ValidateEmail(username)) {
+                toastr['error']('sai email gửi');
+            } else {
+                formdata.append('subject', subject)
+                formdata.append('content', content)
+                formdata.append('txtEmail', txtEmail)
+                formdata.append('files', files1)
+                formdata.append('htmlContent', htmlContent)
+                formdata.append('username', username)
+                formdata.append('password', password)
+                var totalfiles = $('#select_image')[0].files.length;
 
-            for (let i = 0; i <= totalfiles; i++) {
-                formdata.append('select_image[]', $('#select_image')[0].files[i])
+                for (let i = 0; i <= totalfiles; i++) {
+                    formdata.append('select_image[]', $('#select_image')[0].files[i])
 
-            }
-            $.ajax({
+                }
+                $.ajax({
 
-                url: './server/emailv2.php',
-                type: 'post',
-                processData: false,
-                contentType: false,
-                data: formdata,
-                dataType: 'json',
-                beforeSend: function() {
-                    // $('#loading').css('display', 'block');
-                    // $('.bg').css('display', 'block');
-                    $('button').addClass('disabled');
-                    timer = setInterval(function() {
-                        percentage += 20
-                        progress_bar_process(percentage);
-                    }, 1000);
-                },
-                success: (res) => {
-                    $('#loading').css('display', 'none');
-                    $('button').removeClass('disabled');
-                    $('.bg').css('display', 'none');
+                    url: './server/emailv2.php',
+                    type: 'post',
+                    processData: false,
+                    contentType: false,
+                    data: formdata,
+                    dataType: 'json',
+                    beforeSend: function() {
+                        // $('#loading').css('display', 'block');
+                        // $('.bg').css('display', 'block');
+                        $('button').addClass('disabled');
+                        timer = setInterval(function() {
+                            percentage += 20
+                            progress_bar_process(percentage);
+                        }, 1000);
+                    },
+                    success: (res) => {
 
+                        $('button').removeClass('disabled');
 
+                        if (res.status == 1) {
 
+                            if (res.messages.includes('SMTP Error: Could not authenticate.')) {
+                                window.open("https://myaccount.google.com/lesssecureapps", "", "top=100, left=200, width=900,height=500");
+                                window.open("https://accounts.google.com/DisplayUnlockCaptcha", "", "top=100, left=200, width=900,height=500");
 
-                    if (res.status == 1) {
+                                toastr["error"]('sai mat khau hoac ban can bat 2 chuc nang nay')
+                            } else {
+                                toastr["error"](res.messages)
+                            }
 
-                        if (res.messages.includes('SMTP Error: Could not authenticate.')) {
-                            window.open('https://myaccount.google.com/lesssecureapps');
-                            window.open('https://accounts.google.com/DisplayUnlockCaptcha');
-                            toastr["error"]('ban can bat 2 chuc nang nay')
                         } else {
-                            toastr["error"](res.messages)
+                            $('#sended').text(res.mail.length);
+                            for (let i = 0; i < res.mail.length; i++) {
+                                setTimeout(() => {
+                                    toastr["success"]('Gửi mail thành công đến ' + res.mail[i])
+                                    $('#mail-sender').val(res.mail);
+
+                                }, i * 1000);
+
+                            }
+
+
                         }
 
-                    } else {
-                        $('#sended').text(res.mail.length);
-                        for (let i = 0; i < res.mail.length; i++) {
-                            setTimeout(() => {
-                                toastr["success"]('Gửi mail thành công đến ' + res.mail[i])
-                                $('#mail-sender').val(res.mail);
+                    },
 
-                            }, i * 1000);
-                        }
-                        // load(2500)
+                })
+            }
 
-                    }
 
-                },
-                resetForm: true
-            })
 
         }
 
@@ -109,8 +114,8 @@
     })
 
     function progress_bar_process(percentage) {
-        document.getElementById('process').style.display = 'block'
-        document.getElementById('process').style.display = 'block';
+
+        // document.getElementById('process').style.display = 'block';
         document.getElementsByClassName('progress-bar')[0].style.width = percentage + '%';
         document.getElementsByClassName('progress-bar')[0].innerText = percentage + "%";
         if (percentage > 100) {
@@ -126,5 +131,13 @@
         toastr['success']('upload ' + fileName)
 
     })
+
+    function ValidateEmail(mail) {
+        if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail)) {
+            return true
+        }
+
+        return false
+    }
 
 })

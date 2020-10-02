@@ -8,15 +8,14 @@ use PHPMailer\PHPMailer\Exception;
 	
 $email = strip_tags($_POST['txtEmail']);
 $subject = strip_tags($_POST['subject']);
-
-$subject = strip_tags($subject);
-$content = "";
+// $content = $_POST['content'];
+$username = strip_tags($_POST['username']);
+$password = strip_tags($_POST['password']);
 $email_array = [];
 $file_array = [];
 $array_mail = [];
 $time = 0;
-$username = strip_tags($_POST['username']);
-$password = strip_tags($_POST['password']);
+
 
 if(isset($_FILES['htmlContent']) && empty($_POST['content'])){
 	$filename = $_FILES['htmlContent']['name'];
@@ -34,7 +33,7 @@ if(isset($_FILES['htmlContent']) && empty($_POST['content'])){
 					/* Upload file */
 		if(move_uploaded_file($_FILES['htmlContent']['tmp_name'],$location))
 		{
-			$check = 1;
+			
 			$file = fopen($location , 'r');
 			$content =  fread($file, filesize($location));	
 			
@@ -106,7 +105,7 @@ if(!empty($email) && !isset($_FILES['files']['tmp_name']))
 	
 	foreach($email as $value)
 	{
-	array_push($email_array , $value);
+		array_push($email_array , $value);
 
 	}
 	
@@ -161,7 +160,7 @@ if(count($email) > 0 && $content !== "" && $subject !== "")
 }
 else
 {
-	die( json_encode(array('status' => 1 , 'messages' => 'con thieu gi do' , 'mail' => $array_mail , 'time' => $time)));
+	die( json_encode(array('status' => 1 , 'messages' => 'Click lần nữa để gửi mail' , 'mail' => $array_mail , 'time' => $time)));
 }
 	
 		
