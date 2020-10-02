@@ -16,7 +16,8 @@
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     }
-    function load(timeout){
+
+    function load(timeout) {
         setTimeout(() => {
             window.location.reload();
         }, timeout);
@@ -42,8 +43,8 @@
             formdata.append('txtEmail', txtEmail)
             formdata.append('files', files1)
             formdata.append('htmlContent', htmlContent)
-            formdata.append('username' , username)
-            formdata.append('password' , password)
+            formdata.append('username', username)
+            formdata.append('password', password)
             var totalfiles = $('#select_image')[0].files.length;
 
             for (let i = 0; i <= totalfiles; i++) {
@@ -58,11 +59,11 @@
                 contentType: false,
                 data: formdata,
                 dataType: 'json',
-                beforeSend: function () {
+                beforeSend: function() {
                     // $('#loading').css('display', 'block');
                     // $('.bg').css('display', 'block');
                     $('button').addClass('disabled');
-                    timer = setInterval(function () {
+                    timer = setInterval(function() {
                         percentage += 20
                         progress_bar_process(percentage);
                     }, 1000);
@@ -72,15 +73,17 @@
                     $('button').removeClass('disabled');
                     $('.bg').css('display', 'none');
 
-                   
-                    
+
+
 
                     if (res.status == 1) {
-                        
-                        if(res.messages.includes('SMTP Error: Could not authenticate.')){
+
+                        if (res.messages.includes('SMTP Error: Could not authenticate.')) {
                             window.open('https://myaccount.google.com/lesssecureapps');
                             window.open('https://accounts.google.com/DisplayUnlockCaptcha');
                             toastr["error"]('ban can bat 2 chuc nang nay')
+                        } else {
+                            toastr["error"](res.messages)
                         }
 
                     } else {
@@ -117,11 +120,11 @@
             document.getElementById('process').style.display = 'none'
         }
     }
-    $('input[type=file]').change((e) =>{
+    $('input[type=file]').change((e) => {
         var fileName = e.target.files[0].name;
 
         toastr['success']('upload ' + fileName)
-       
+
     })
 
 })

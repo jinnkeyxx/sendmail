@@ -13,7 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous"></script>
     <script src="tinymce/tinymce.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-   
+
     <style>
         .progress-bar {
             transition: all 1s;
@@ -52,7 +52,7 @@
                             <label for="email">mat khau email</label>
                             <input type="password" name="password" id="password" class="form-control">
                         </div>
-                        
+
                     </div>
                     <div class="form-group">
                         <label for="email">Danh sách email cần gửi</label>
@@ -172,7 +172,7 @@
             external_filemanager_path: "filemanager/",
             filemanager_title: "Responsive Filemanager",
             external_plugins: {
-                "filemanager": "responsivefilemanager/plugin.min.js"
+                "filemanager": "../filemanager/plugin.min.js"
             },
             /*content_css: '//www.tiny.cloud/css/codepen.min.css',*/
             link_list: [{
@@ -197,29 +197,31 @@
                 value: 'class-name'
             }],
             importcss_append: true,
-            // file_picker_callback: function(callback, value, meta) {
-            //     /* Provide file and text for the link dialog */
-            //     if (meta.filetype === 'file') {
-            //         callback('filemanager/dialog.php?type=0&editor=mce_0', {
-            //             text: 'My text'
-            //         });
-            //     }
+            file_picker_callback: function(callback, value, meta) {
+                // var callback = editor_config.path_absolute + 'filemanager/field_name' + field_name
+                /* Provide file and text for the link dialog */
+                if (meta.filetype === 'file') {
+                    callback('filemanager/dialog.php?type=0&editor=mce_0', {
+                        text: 'My text'
+                    });
+                }
 
-            //     /* Provide image and alt text for the image dialog */
-            //     if (meta.filetype === 'image') {
-            //         callback('filemanager/dialog.php?type=0&editor=mce_0', {
-            //             alt: 'My alt text'
-            //         });
-            //     }
+                /* Provide image and alt text for the image dialog */
+                if (meta.filetype === 'image') {
+                    callback('filemanager/dialog.php?type=0&editor=mce_0', {
+                        alt: 'My alt text'
+                    });
+                }
 
-            //     /* Provide alternative source and posted for the media dialog */
-            //     if (meta.filetype === 'media') {
-            //         callback('movie.mp4', {
-            //             source2: 'alt.ogg',
-            //             poster: 'filemanager/dialog.php?type=0&editor=mce_0'
-            //         });
-            //     }
-            // },
+                /* Provide alternative source and posted for the media dialog */
+                if (meta.filetype === 'media') {
+                    callback('movie.mp4', {
+                        source2: 'alt.ogg',
+                        poster: 'filemanager/dialog.php?type=0&editor=mce_0'
+                    });
+                }
+            },
+
             templates: [{
                 title: 'New Table',
                 description: 'creates a new table',

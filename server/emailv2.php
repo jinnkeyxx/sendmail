@@ -8,14 +8,16 @@ use PHPMailer\PHPMailer\Exception;
 	
 $email = strip_tags($_POST['txtEmail']);
 $subject = strip_tags($_POST['subject']);
-$email = strip_tags($email);
+
 $subject = strip_tags($subject);
-$array_mail = [];
+$content = "";
+$email_array = [];
 $file_array = [];
+$array_mail = [];
 $time = 0;
 $username = strip_tags($_POST['username']);
 $password = strip_tags($_POST['password']);
-$content = strip_tags($_POST['content']);
+
 if(isset($_FILES['htmlContent']) && empty($_POST['content'])){
 	$filename = $_FILES['htmlContent']['name'];
 	$location = "../server/filemail/".$filename;
@@ -36,6 +38,8 @@ if(isset($_FILES['htmlContent']) && empty($_POST['content'])){
 			$file = fopen($location , 'r');
 			$content =  fread($file, filesize($location));	
 			
+
+			
 		}else
 		{
 			die( json_encode(array('status' => 1 , 'messages' => 'không thể up load file' , 'mail' => $array_mail , 'time' => $time)));
@@ -45,12 +49,10 @@ if(isset($_FILES['htmlContent']) && empty($_POST['content'])){
 	}
 	
 }
-elseif(isset($_FILES['htmlContent']) && !empty($_POST['content'])) {
-	$content = $_POST['content'];
-}
+
 else {
 	$content = $_POST['content'];
-	// die( json_encode(array('status' => 1 , 'messages' => 'không thể gửi 2 content' , 'mail' => $array_mail , 'time' => $time)));
+	
 }
 
 
@@ -100,7 +102,14 @@ if(!empty($email) && !isset($_FILES['files']['tmp_name']))
 {
 	
 	$email = explode("\n" , $email);
-	send_mail($email , $subject , $content );
+	// send_mail($email , $subject , $content );
+	
+	foreach($email as $value)
+	{
+	array_push($email_array , $value);
+
+	}
+	
 }
 			
 		
@@ -132,9 +141,10 @@ elseif(isset($_FILES['files']['name']) && empty($email))
 
 			// chuyển đổi file sang mảng
 			$read =  fread($file, filesize($location));
-			$data = explode("\n" , $read);
-			// die(print_r($data));
-			send_mail($data , $subject , $content);
+			$email = explode("\n" , $read);
+			
+			// send_mail($data , $subject , $content);
+			array_push($email_array , $email);
 						
 		}else
 		{
@@ -144,7 +154,15 @@ elseif(isset($_FILES['files']['name']) && empty($email))
 					
 	}
 }
-	
+if(count($email) > 0 && $content !== "" && $subject !== "")
+{
+	send_mail($email_array , $subject , $content);
+
+}
+else
+{
+	die( json_encode(array('status' => 1 , 'messages' => 'con thieu gi do' , 'mail' => $array_mail , 'time' => $time)));
+}
 	
 		
 		// dung thu vien php mailer
@@ -154,6 +172,8 @@ function send_mail($email  , $subject , $content)
 	global $username;
 	global $password;
 	$array_mail = [];
+	
+	global $time;
 	$mail = new PHPMailer(true);
 	try {
 			                 
@@ -166,7 +186,7 @@ function send_mail($email  , $subject , $content)
 		#pass your email            
 		$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         
 		$mail->Port       = 587;                                    
-		$mail->setFrom($username, ''); 
+		$mail->setFrom($username, 'Hello'); 
 		#TitTe Youremail
 		
 		foreach ($email as $key => $value)
