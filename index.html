@@ -32,14 +32,25 @@
         }
         
         body {
-            background: rgb(63, 94, 251);
-            background: radial-gradient(circle, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 100%);
+            background: rgb(63, 86, 199);
+            background: radial-gradient(circle, rgba(63, 86, 199, 1) 0%, rgba(24, 178, 199, 1) 100%);
         }
         
-        input,
+        label,
+        .btn-warning {
+            font-size: 14pt;
+            font-weight: 500;
+            color: rgb(3, 17, 29);
+        }
+        /* input,
         textarea {
             background-color: transparent !important;
-        }
+        } */
+        /* input,
+        textarea {
+            margin-left: 10px;
+            margin-right: 10px;
+        } */
     </style>
 </head>
 
@@ -50,64 +61,59 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-sm-12 col-md-12  col-lg-12 col-xl-12 mt-3">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-3">
 
-                <form class="my-3  p-3" id="form-email" enctype="multipart/form-data">
-                    <div class="form-inline my-3 mx-3 ">
+                <form class="my-3 p-3" id="form-email" enctype="multipart/form-data">
+                    <div class="form-inline">
                         <div class="form-group">
-                            <label for="email">Tai khaon email</label>
-                            <input type="text" name="username" id="username" class="form-control" placeholder="username@gmail.com">
+                            <label for="email" class="mr-sm-2"> TÀI KHOẢN GMAIL GỬI: </label>
+                            <input type="text" name="username" id="username" class="form-control mr-sm-2" placeholder="username@gmail.com" required>
                         </div>
                         <div class="form-group">
-                            <label for="password">mat khau email</label>
-                            <input type="password" name="password" id="password" class="form-control" placeholder="******">
+                            <label for="password" class="mr-sm-2"> MẬT KHẨU: </label>
+                            <input type="password" name="password" id="password" class="form-control mr-sm-2" placeholder="******" required>
                         </div>
 
                     </div>
                     <div class="form-group">
-                        <label for="email">Danh sách email cần gửi</label>
-                        <textarea type="email" name="txtEmail" id="email" class="form-control" rows="5"></textarea>
+                        <label for="email" class="mt-sm-5">DANH SÁCH EMAIL CẦN GỬI: </label>
+                        <textarea type="email" name="txtEmail" id="email" class="form-control" rows="7" placeholder="Ngăn cách các Email bằng dấu , hoặc ; hoặc xuống dòng"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="txtemail"> <i class="fa fa-upload" ></i> File email </label>
+                        <label for="txtemail" style="color: gold;"> <i class="fa fa-file-text-o" ></i> File Email </label>
                         <input type="file" name="txtemail" id="txtemail" class="form-control">
 
-
-                        <label for="txtemail"> <i class="fa fa-upload"></i> Đính kèm ảnh </label>
+                        <label for="txtemail" class="ml-sm-4" style="color: greenyellow;"> <i class="fa fa-file-image-o"></i> Đính kèm ảnh </label>
                         <input type="file" name="select_image[]" id="select_image" class="form-control" multiple="true">
-                        <label for="htmlContent"> <i class="fa fa-upload"></i> Đính kèm nội dung html </label>
-                        <input type="file" name="htmlContent" id="htmlContent" class="form-control">
 
                     </div>
                     <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" name="txtSubject" id="subject" class="form-control">
+                        <label for="subject">TIÊU ĐỀ</label>
+                        <input type="text" name="txtSubject" id="subject" class="form-control" required>
                     </div>
-                    <div class="form-group"></div>
-                    <label for="content">Content</label>
-                    <textarea rows="24" class="tinymce" id="content" name="txtContent"></textarea>
 
+                    <label for="content">NỘI DUNG</label>
+                    <label for="htmlContent" class="ml-sm-4" style="color: gold;"> <i class="fa fa-file-code-o"></i> Đính kèm nội dung HTML </label>
+                    <input type="file" name="htmlContent" id="htmlContent" class="form-control">
+                    <textarea rows="15" class="tinymce" id="content" name="txtContent" required></textarea>
+                    <div class="form-group" id="btn">
+                        <button class="btn btn-warning form-control mt-4" type="submit" name="btnSend"> GỬI </button>
+
+                    </div>
+                </form>
             </div>
 
-            <div class="form-group">
-
-
-            </div>
-            <button class="btn btn-primary form-control" type="submit" name="btnSend">Send</button>
-            <div class="form-group my-3" id="process" style="display: none">
-
-            </div>
-
-            </form>
         </div>
-        <div class="col-12 col-sm-12 col-md-12  col-lg-12 col-xl-12 mt-3">
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <div class="form-group mail-sender">
-                <label for="mail-sender">Mail da gui <span id="sended"> </span></label>
+                <label for="mail-sender"> MAIL ĐÃ GỬI <span id="sended"> </span></label>
                 <textarea class="form-control " id="mail-sender" name="txtContent" rows="5" disable="true"></textarea>
             </div>
         </div>
+
     </div>
-    </div>
+
     <div class="" id='loading' style="display:none; z-index: 99999999999999;">
         <div class="circle"></div>
         <div class="circle-small"></div>
