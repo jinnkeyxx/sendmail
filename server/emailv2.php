@@ -143,20 +143,17 @@ elseif(isset($_FILES['files']['name']) && empty($email))
 			
 			$pos = strpos($read, ';');
 			$pos2 = strpos($read, ',');
-			$pos3 = strpos($read, '\n');
+			
 			if($pos !== false){
 				$email = explode(";" , $read);
 			}
 			elseif($pos2 !== false){
 				$email = explode("," , $read);
 			}
-			elseif($pos3 !== false) {
+			else {
 				$email = explode("\n" , $read);
 			}
-			else {
-				
-				die(json_encode(array('status' => 1 , 'messages' => 'email không đúng định dạng' , 'mail' => $array_mail , 'time' => $time)));
-			}
+			
 			
 			foreach($email as $value)
 			{
