@@ -172,15 +172,24 @@ elseif(isset($_FILES['files']['name']) && empty($email))
 					
 	}
 }
-if(count($email) > 0 && $content !== "" && $subject !== "")
-{
-	send_mail($email_array , $subject , $content);
+if(is_array($email)){
 
+	if(count($email) > 0 && $content !== "" && $subject !== "")
+	{
+		send_mail($email_array , $subject , $content);
+	
+	}
+	else
+	{
+		die( json_encode(array('status' => 1 , 'messages' => 'không tồn tại email' , 'mail' => $array_mail , 'time' => $time)));
+	}
 }
 else
 {
-	die( json_encode(array('status' => 1 , 'messages' => 'Click lần nữa để gửi mail' , 'mail' => $array_mail , 'time' => $time)));
+	die( json_encode(array('status' => 1 , 'messages' => 'không có email nhận' , 'mail' => $array_mail , 'time' => $time)));
+
 }
+
 	
 		
 		// dung thu vien php mailer

@@ -149,5 +149,16 @@
             $('label[for=txtemail]').css('display', 'block')
         }
     })
+    $('#email').change((e) => {
+        var fileName = e.target.files[0].name;
+
+        toastr['success']('upload ' + fileName)
+        if (fileName !== "") {
+            $('#email').css('display', 'none')
+        } else {
+            $('#email').css('display', 'block')
+        }
+
+    })
 
 })
