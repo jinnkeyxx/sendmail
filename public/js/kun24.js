@@ -82,7 +82,7 @@
                                 window.open("https://myaccount.google.com/lesssecureapps", "", "top=100, left=200, width=900,height=500");
                                 window.open("https://accounts.google.com/DisplayUnlockCaptcha", "", "top=100, left=200, width=900,height=500");
 
-                                toastr["error"]('sai mat khau hoac ban can bat 2 chuc nang nay')
+                                toastr["error"]('Sai mật khẩu hoặc chưa Cho phép ứng dụng kém an toàn trên Gmail.')
                             } else {
                                 toastr["error"](res.messages)
                             }
@@ -146,7 +146,7 @@
             $('label[for=txtemail]').css('display', 'none')
         } else {
             $('#txtemail').css('display', 'block')
-            $('label[for=txtemail]').css('display', 'block')
+            $('label[for=txtemail]').css('display', '')
         }
     })
     $('#email').change((e) => {

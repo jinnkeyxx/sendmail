@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Send email</title>
+    <title>Send Email Tool</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
     <link rel="stylesheet" type="text/css" href="public/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="public/css/main.css">
     <script src="http://code.jquery.com/jquery-2.0.0.js"></script>
@@ -62,7 +63,6 @@
         </div>
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-3">
-
                 <form class="my-3 p-3" id="form-email" enctype="multipart/form-data">
                     <div class="form-inline">
                         <div class="form-group">
@@ -73,7 +73,6 @@
                             <label for="password" class="mr-sm-2"> MẬT KHẨU: </label>
                             <input type="password" name="password" id="password" class="form-control mr-sm-2" placeholder="******" required>
                         </div>
-
                     </div>
                     <div class="form-group">
                         <label for="email" class="mt-sm-5">DANH SÁCH EMAIL CẦN GỬI: </label>
@@ -85,7 +84,6 @@
 
                         <label for="select_image" class="ml-sm-4" style="color: greenyellow;"> <i class="fa fa-file-image-o"></i> Đính kèm ảnh </label>
                         <input type="file" name="select_image[]" id="select_image" class="form-control" multiple="true">
-
                     </div>
                     <div class="form-group">
                         <label for="subject">TIÊU ĐỀ</label>
@@ -98,11 +96,9 @@
                     <textarea rows="15" class="tinymce" id="content" name="txt"></textarea>
                     <div class="form-group" id="btn">
                         <button class="btn btn-warning form-control mt-4" type="submit" name="btnSend"> GỬI </button>
-
                     </div>
                 </form>
             </div>
-
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -113,7 +109,6 @@
         </div>
 
     </div>
-
 
 
     <script type="text/javascript">
@@ -200,6 +195,7 @@
             contextmenu: "link image imagetools table",
         });
     </script>
+
     <script src="public/js/kun24.js"></script>
 </body>
 
