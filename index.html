@@ -83,7 +83,7 @@
                         <label for="txtemail" style="color: gold;"> <i class="fa fa-file-text-o" ></i> File Email </label>
                         <input type="file" name="txtemail" id="txtemail" class="form-control">
 
-                        <label for="txtemail" class="ml-sm-4" style="color: greenyellow;"> <i class="fa fa-file-image-o"></i> Đính kèm ảnh </label>
+                        <label for="select_image" class="ml-sm-4" style="color: greenyellow;"> <i class="fa fa-file-image-o"></i> Đính kèm ảnh </label>
                         <input type="file" name="select_image[]" id="select_image" class="form-control" multiple="true">
 
                     </div>
@@ -95,7 +95,7 @@
                     <label for="content">NỘI DUNG</label>
                     <label for="htmlContent" class="ml-sm-4" style="color: gold;"> <i class="fa fa-file-code-o"></i> Đính kèm nội dung HTML </label>
                     <input type="file" name="htmlContent" id="htmlContent" class="form-control">
-                    <textarea rows="15" class="tinymce" id="content" name="txtContent" required></textarea>
+                    <textarea rows="15" class="tinymce" id="content" name="txt"></textarea>
                     <div class="form-group" id="btn">
                         <button class="btn btn-warning form-control mt-4" type="submit" name="btnSend"> GỬI </button>
 
@@ -108,28 +108,13 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <div class="form-group mail-sender">
                 <label for="mail-sender"> MAIL ĐÃ GỬI <span id="sended"> </span></label>
-                <textarea class="form-control " id="mail-sender" name="txtContent" rows="5" disable="true"></textarea>
+                <textarea class="form-control " id="mail-sender" name="" rows="5" disable="true"></textarea>
             </div>
         </div>
 
     </div>
 
-    <div class="" id='loading' style="display:none; z-index: 99999999999999;">
-        <div class="circle"></div>
-        <div class="circle-small"></div>
-        <div class="circle-big"></div>
-        <div class="circle-inner-inner"></div>
-        <div class="circle-inner"></div>
-    </div>
-    <div class="bg"></div>
-    <script type="text/javascript">
-        var span = document.querySelector("span");
-        span.addEventListener("input", function() {
-            var text = this.innerText;
-            this.setAttribute("data-heading", text);
-            this.parentElement.setAttribute("data-heading", text);
-        });
-    </script>
+
 
     <script type="text/javascript">
         tinymce.init({
@@ -145,52 +130,6 @@
             autosave_restore_when_empty: false,
             autosave_retention: "2m",
             image_advtab: true,
-
-            images_upload_url: 'server/upload.php',
-            images_upload_handler: function(blobInfo, success, failure) {
-                var xhr, formData;
-
-                xhr = new XMLHttpRequest();
-                xhr.withCredentials = false;
-                xhr.open('POST', 'server/upload.php');
-
-                xhr.onload = function() {
-                    var json;
-
-                    if (xhr.status != 200) {
-                        failure('HTTP Error: ' + xhr.status);
-                        return;
-                    }
-
-                    json = JSON.parse(xhr.responseText);
-
-                    if (!json || typeof json.location != 'string') {
-                        failure('Invalid JSON: ' + xhr.responseText);
-                        return;
-                    }
-
-                    success(json.location);
-                };
-                formData = new FormData();
-                formData.append('file', blobInfo.blob(), blobInfo.filename());
-
-                xhr.send(formData);
-            },
-
-            plugins: [
-                "advlist autolink link image lists charmap print preview hr anchor pagebreak",
-                "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
-                "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
-            ],
-            toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
-            toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
-            image_advtab: true,
-
-            external_filemanager_path: "filemanager/",
-            filemanager_title: "Responsive Filemanager",
-            external_plugins: {
-                "filemanager": "../filemanager/plugin.min.js"
-            },
             /*content_css: '//www.tiny.cloud/css/codepen.min.css',*/
             link_list: [{
                 title: 'My page 1',

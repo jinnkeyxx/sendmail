@@ -139,5 +139,15 @@
 
         return false
     }
+    $('#email').keyup(() => {
+        let text = $('#email').val()
+        if (text !== "") {
+            $('#txtemail').css('display', 'none')
+            $('label[for=txtemail]').css('display', 'none')
+        } else {
+            $('#txtemail').css('display', 'block')
+            $('label[for=txtemail]').css('display', 'block')
+        }
+    })
 
 })
