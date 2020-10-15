@@ -210,7 +210,8 @@ function send_mail($email  , $subject , $content)
 		$mail->Username   = $username;     
 		#your email                
 		$mail->Password   = $password;                
-		#pass your email            
+		#pass your email   
+		$mail->CharSet = "UTF-8";          
 		$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         
 		$mail->Port       = 587;                                    
 		$mail->setFrom($username, $bidanh);
