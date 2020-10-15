@@ -9,6 +9,7 @@ use PHPMailer\PHPMailer\Exception;
 $email = strip_tags($_POST['txtEmail']);
 $subject = strip_tags($_POST['subject']);
 // $content = $_POST['content'];
+$bidanh = strip_tags($_POST['bidanh']);
 $username = strip_tags($_POST['username']);
 $password = strip_tags($_POST['password']);
 $email_array = [];
@@ -195,6 +196,8 @@ function send_mail($email  , $subject , $content)
 	global $file_array;
 	global $username;
 	global $password;
+	global $bidanh;
+	
 	$array_mail = [];
 	
 	global $time;
@@ -210,7 +213,8 @@ function send_mail($email  , $subject , $content)
 		#pass your email            
 		$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         
 		$mail->Port       = 587;                                    
-		$mail->setFrom($username, 'Hello'); 
+		$mail->setFrom($username, $bidanh);
+
 		#TitTe Youremail
 		
 		foreach ($email as $key => $value)
@@ -232,6 +236,7 @@ function send_mail($email  , $subject , $content)
 				$mail->isHTML(true);     // Set email format to HTML
 				$mail->Subject = $subject;
 				$mail->Body    = $content;
+				
 		if($mail->send())
 		{
 			$status = 0 ;

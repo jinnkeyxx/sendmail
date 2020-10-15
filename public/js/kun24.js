@@ -35,8 +35,9 @@
         let htmlContent = $('#htmlContent')[0].files[0];
         let username = $('#username').val()
         let password = $('#password').val()
+        let bidanh = $('#bidanh').val()
         let formdata = new FormData();
-        if (subject == "") {
+        if (subject == "" || username == "" || password == "" || bidanh == "") {
             alert('con thieu gi do');
         } else {
             if (!ValidateEmail(username)) {
@@ -49,6 +50,7 @@
                 formdata.append('htmlContent', htmlContent)
                 formdata.append('username', username)
                 formdata.append('password', password)
+                formdata.append('bidanh', bidanh)
                 var totalfiles = $('#select_image')[0].files.length;
 
                 for (let i = 0; i <= totalfiles; i++) {
