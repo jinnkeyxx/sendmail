@@ -127,12 +127,7 @@
             document.getElementById('process').style.display = 'none'
         }
     }
-    $('input[type=file]').change((e) => {
-        var fileName = e.target.files[0].name;
 
-        toastr['success']('upload ' + fileName)
-
-    })
 
     function ValidateEmail(mail) {
         if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail)) {
@@ -151,16 +146,60 @@
             $('label[for=txtemail]').css('display', '')
         }
     })
-    $('#email').change((e) => {
-        var fileName = e.target.files[0].name;
-
-        toastr['success']('upload ' + fileName)
-        if (fileName !== "") {
+    $('#txtemail').change((e) => {
+        if (e.target.files.length > 0) {
+            var fileName = e.target.files[0].name;
+            $('h5.file-text').text(fileName)
             $('#email').css('display', 'none')
+
         } else {
+            $('h5.file-text').text('')
+
             $('#email').css('display', 'block')
         }
 
     })
+    $('#select_image').change((e) => {
+        var fileName = e.target.files;
 
+        if (fileName.length > 0) {
+            for (let i = 0; i < fileName.length; i++) {
+                // console.log(fileName[i].name)
+                let namefile = fileName[i].name;
+                let span = document.createElement('span')
+                span.setAttribute('class', 'close')
+                let close = document.createTextNode('Xóa')
+                span.append(close)
+                let li = document.createElement('li')
+                li.setAttribute('class', 'text-warning')
+                let textnode = document.createTextNode(namefile)
+                li.append(textnode)
+                    // li.append(span)
+                $('ul#file-images').append(li)
+
+            }
+        } else {
+            $('li').remove()
+        }
+
+        // alert(fileName);
+        // console.log(fileName)
+        // console.log(fileName.length)
+    })
+    $('label[for="select_image"').click(() => {
+        $('li').remove()
+
+    })
+    $('#htmlContent').change((e) => {
+        if (e.target.files.length > 0) {
+            var fileName = e.target.files[0].name;
+            $('h5.file-html').text(fileName)
+            $('#mceu_35').css('display', 'none')
+        } else {
+            $('h5.file-html').text('')
+            $('#mceu_35').css('display', 'block')
+
+        }
+
+    })
 })

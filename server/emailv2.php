@@ -65,7 +65,7 @@ if(isset($_FILES['select_image']))
 		foreach($_FILES['select_image']['name'] as $name => $value)  
 		{  
 			$file_name = explode(".", $_FILES['select_image']['name'][$name]);  
-			$allowed_extension = array("jpg", "jpeg", "png", "gif" , "pdf" , "mp4" , "mkv" ,"Doc", "Docx", "Xls", "Xlsx", "ppt", "pptx" , "zip" , "rar" , "avi" , "wav");  
+			$allowed_extension = array("jpg", "jpeg", "png", "gif" , "pdf" , "mp4" , "mkv" ,"doc", "docx", "xls", "xlsx", "ppt", "pptx" , "zip" , "rar" , "avi" , "wav");  
 			if(in_array($file_name[1], $allowed_extension))  
 			{  
 				$new_name = rand() . '.'. $file_name[1];  

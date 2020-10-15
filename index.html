@@ -88,9 +88,13 @@
                     <div class="form-group">
                         <label for="txtemail" style="color: gold;"> <i class="fa fa-file-text-o" ></i> File Email </label>
                         <input type="file" name="txtemail" id="txtemail" class="form-control">
-
                         <label for="select_image" class="ml-sm-4" style="color: greenyellow;"> <i class="fa fa-file-image-o"></i> Đính kèm ảnh </label>
                         <input type="file" name="select_image[]" id="select_image" class="form-control" multiple="true">
+                        <h5 class="file-text"></h5>
+
+                    </div>
+                    <div class="form-group">
+                        <ul id="file-images"></ul>
                     </div>
                     <div class="form-group">
                         <label for="subject">TIÊU ĐỀ</label>
@@ -100,6 +104,7 @@
                     <label for="content">NỘI DUNG</label>
                     <label for="htmlContent" class="ml-sm-4" style="color: gold;"> <i class="fa fa-file-code-o"></i> Đính kèm nội dung HTML </label>
                     <input type="file" name="htmlContent" id="htmlContent" class="form-control">
+                    <h5 class="file-html"></h5>
                     <textarea rows="15" class="tinymce" id="content" name="txt"></textarea>
                     <div class="form-group" id="btn">
                         <button class="btn btn-warning form-control mt-4" type="submit" name="btnSend"> GỬI </button>
