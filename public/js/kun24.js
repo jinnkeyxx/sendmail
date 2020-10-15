@@ -171,7 +171,7 @@
                 let close = document.createTextNode('Xóa')
                 span.append(close)
                 let li = document.createElement('li')
-                li.setAttribute('class', 'text-warning')
+                li.setAttribute('class', '')
                 let textnode = document.createTextNode(namefile)
                 li.append(textnode)
                     // li.append(span)
@@ -193,7 +193,7 @@
     $('#htmlContent').change((e) => {
         if (e.target.files.length > 0) {
             var fileName = e.target.files[0].name;
-            $('h5.file-html').text(fileName)
+            $('h5.file-html').text('File upload: '+fileName)
             $('#mceu_35').css('display', 'none')
         } else {
             $('h5.file-html').text('')
