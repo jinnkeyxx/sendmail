@@ -168,13 +168,14 @@
                 let namefile = fileName[i].name;
                 let span = document.createElement('span')
                 span.setAttribute('class', 'close')
-                let close = document.createTextNode('Xóa')
+                let close = document.createTextNode('')
                 span.append(close)
                 let li = document.createElement('li')
                 li.setAttribute('class', '')
                 let textnode = document.createTextNode(namefile)
+                li.append(span)
+
                 li.append(textnode)
-                    // li.append(span)
                 $('ul#file-images').append(li)
 
             }
@@ -201,5 +202,8 @@
 
         }
 
+    })
+    $('#reload').click(() => {
+        load(0)
     })
 })
